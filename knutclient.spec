@@ -1,5 +1,5 @@
-Summary:	KNutClient
-Summary(pl):	KNutClient
+Summary:	KNutClient - KDE client for UPS systems using NUT
+Summary(pl):	KNutClient - klient KDE dla systemów UPS korzystaj±cych z NUT-a
 Name:		knutclient
 Version:	0.9
 Release:	0.1
@@ -12,7 +12,6 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	kdelibs-devel >= 9:3.2.0
 BuildRequires:	rpmbuild(macros) >= 1.129
-Requires:	nut
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -20,7 +19,8 @@ KNutClient is a visual KDE client for UPS systems using NUT - Network
 UPS Tools.
 
 %description -l pl
-KNutClient to klient systemów UPS u¿ywaj±cych NUT, napisany pod KDE.
+KNutClient to klient systemów UPS u¿ywaj±cych NUT-a (Network UPS
+Tools), napisany pod KDE.
 
 %prep
 %setup -q
@@ -45,7 +45,7 @@ install -d $RPM_BUILD_ROOT{%{_pixmapsdir},%{_desktopdir}}
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_htmldir=%{_kdedocdir} \
 	kde_libs_htmldir=%{_kdedocdir} \
-	kdelnkdir=%{_desktopdir} \
+	shelldesktopdir=%{_desktopdir}/kde
 
 %find_lang %{name} --with-kde
 
@@ -54,8 +54,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS COPYING INSTALL NEWS README
+%doc AUTHORS ChangeLog README TODO
 %attr(755,root,root) %{_bindir}/knutclient
-%{_datadir}/applnk/Utilities/knutclient.desktop
 %{_datadir}/apps/knutclient
+%{_desktopdir}/kde/knutclient.desktop
 %{_iconsdir}/hicolor/*/apps/*
