@@ -1,5 +1,5 @@
 Summary:	KNutClient - KDE client for UPS systems using NUT
-Summary(pl):	KNutClient - klient KDE dla systemów UPS korzystaj±cych z NUT-a
+Summary(pl.UTF-8):   KNutClient - klient KDE dla systemÃ³w UPS korzystajÄ…cych z NUT-a
 Name:		knutclient
 Version:	0.9
 Release:	0.1
@@ -18,8 +18,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 KNutClient is a visual KDE client for UPS systems using NUT - Network
 UPS Tools.
 
-%description -l pl
-KNutClient to klient systemów UPS u¿ywaj±cych NUT-a (Network UPS
+%description -l pl.UTF-8
+KNutClient to klient systemÃ³w UPS uÅ¼ywajÄ…cych NUT-a (Network UPS
 Tools), napisany pod KDE.
 
 %prep
