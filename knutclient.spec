@@ -1,15 +1,16 @@
 Summary:	KNutClient - KDE client for UPS systems using NUT
 Summary(pl.UTF-8):	KNutClient - klient KDE dla systemów UPS korzystających z NUT-a
 Name:		knutclient
-Version:	0.9
+Version:	0.9.4
 Release:	0.1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	ftp://ftp.buzuluk.cz/pub/alo/knutclient/stable/%{name}-%{version}.tar.gz
-# Source0-md5:	f63e4242b393e14df1b48739a7df1e35
+Patch0:		%{name}-automakeversion.patch
+# Source0-md5:	c2f99e390f1fee470de2cab8c3a5fddd
 URL:		http://www.alo.cz/knutclient/
 BuildRequires:	autoconf
-BuildRequires:	automake
+BuildRequires:	automake >= 1.6.1
 BuildRequires:	kdelibs-devel >= 9:3.2.0
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -24,6 +25,8 @@ Tools), napisany pod KDE.
 
 %prep
 %setup -q
+
+%patch0 -p1
 
 %build
 cp -f /usr/share/automake/config.sub admin
