@@ -1,17 +1,16 @@
 Summary:	KNutClient - KDE client for UPS systems using NUT
 Summary(pl.UTF-8):	KNutClient - klient KDE dla systemów UPS korzystających z NUT-a
 Name:		knutclient
-Version:	0.9.4
+Version:	1.0.4
 Release:	0.1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	ftp://ftp.buzuluk.cz/pub/alo/knutclient/stable/%{name}-%{version}.tar.gz
+# Source0-md5:	b01cc17ef72c7598f51cc7cd98e3bf40
 Patch0:		%{name}-automakeversion.patch
-# Source0-md5:	c2f99e390f1fee470de2cab8c3a5fddd
 URL:		http://www.alo.cz/knutclient/
-BuildRequires:	autoconf
-BuildRequires:	automake >= 1.6.1
-BuildRequires:	kdelibs-devel >= 9:3.2.0
+BuildRequires:	cmake >= 2.8.0
+BuildRequires:	kde4-kdelibs-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -26,29 +25,19 @@ Tools), napisany pod KDE.
 %prep
 %setup -q
 
-%patch0 -p1
-
 %build
-cp -f /usr/share/automake/config.sub admin
-%{__make} -f admin/Makefile.common cvs
-
-%configure \
-%if "%{_lib}" == "lib64"
-	--enable-libsuffix=64 \
-%endif
-	--%{?debug:en}%{!?debug:dis}able-debug%{?debug:=full} \
-	--with-qt-libraries=%{_libdir}
+cd build
+cmake .. \
+	-DCMAKE_INSTALL_PREFIX=/usr/ \
+	-DCMAKE_BUILD_TYPE=Release
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_pixmapsdir},%{_desktopdir}}
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	kde_htmldir=%{_kdedocdir} \
-	kde_libs_htmldir=%{_kdedocdir} \
-	shelldesktopdir=%{_desktopdir}/kde
+%{__make} -C build install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %find_lang %{name} --with-kde
 
@@ -60,5 +49,5 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog README TODO
 %attr(755,root,root) %{_bindir}/knutclient
 %{_datadir}/apps/knutclient
-%{_desktopdir}/kde/knutclient.desktop
+%{_desktopdir}/kde4/knutclient.desktop
 %{_iconsdir}/hicolor/*/apps/*
